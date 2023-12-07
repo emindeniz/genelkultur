@@ -22,9 +22,10 @@ from user import User
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
-GOOGLE_CLIENT_ID = "911892241369-7gmpphdbvuq8ejjg69b0n7crfs5vd27u.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
-GOOGLE_CLIENT_SECRET = "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"
+# GOOGLE_CLIENT_ID = "911892241369-7gmpphdbvuq8ejjg69b0n7crfs5vd27u.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID = "911892241369-rr8q01b8oaa35d29s5relbmm8c40lmkt.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_PROVIDER_AUTHENTICATION_SECRET", None)
+# GOOGLE_CLIENT_SECRET = "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"
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
