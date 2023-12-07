@@ -2,6 +2,7 @@
 import json
 import os
 import sqlite3
+import traceback
 
 # Third-party libraries
 from flask import Flask, redirect, request, url_for
@@ -39,10 +40,13 @@ login_manager.init_app(app)
 
 # Naive database setup
 try:
-    init_db_command()
+    init_db_command.main(standalone_mode=False)
 except sqlite3.OperationalError:
     # Assume it's already been created
     pass
+except Exception as e: #sqlite3.OperationalError:
+    # Assume it's already been created
+    traceback.print_exc()
 
 # OAuth 2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
