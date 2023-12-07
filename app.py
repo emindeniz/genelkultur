@@ -70,6 +70,7 @@ def index():
         )
     else:
         return '<a class="button" href="/login">Google Login</a>'
+        # return '<a href="/.auth/login/google?post_login_redirect_uri=/Home/Index">Log in</a>'
     
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
