@@ -121,7 +121,7 @@ def callback():
         data=body,
         auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
     )
-    logging..info('Got the response')
+    logging.info('Got the response')
 
     # Parse the tokens!
     client.parse_request_body_response(json.dumps(token_response.json()))
