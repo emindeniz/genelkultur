@@ -168,7 +168,7 @@ def logout():
 def writeLog(log: str):
     basepath = os.path.dirname(__file__)
     today = os.date.today()
-    filepath = os.path.abspath(os.path.join(basepath, "..", "..", "LogFiles", "MyBot_" + today.strftime("%Y-%m-%d") + ".log"))
+    filepath = os.path.abspath(os.path.join(basepath, "app.log"))
     f = open(filepath, "a+")
     f.write(today.strftime("%Y-%m-%d %H:%M:%S") + " " + log)
     f.write("\n")
