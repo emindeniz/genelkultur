@@ -85,7 +85,7 @@ def login():
     # scopes that let you retrieve user's profile from Google
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri='https://appservicestestemin.azurewebsites.net/login/callback', # request.base_url + "/callback",
+        redirect_uri="https://appservicestestemin.azurewebsites.net/login/callback", # request.base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
