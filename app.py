@@ -3,8 +3,6 @@ import json
 import os
 import sqlite3
 import traceback
-import logging
-logging.basicConfig(filename='app.log', level=logging.INFO)
 
 # Third-party libraries
 from flask import Flask, redirect, request, url_for
@@ -97,7 +95,7 @@ def login():
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
-    logging.info('Got the code')
+    writeLog('Got the code')
     # Find out what URL to hit to get tokens that allow you to ask for
     # things on behalf of a user
     google_provider_cfg = get_google_provider_cfg()
@@ -110,10 +108,10 @@ def callback():
         redirect_url=request.base_url,
         code=code
     )
-    logging.info('Created token request code')
-    logging.info(f'token_url:{token_url}')
-    logging.info(f'headers:{headers}')
-    logging.info(f'body:{body}')
+    writeLog('Created token request code')
+    writeLog(f'token_url:{token_url}')
+    writeLog(f'headers:{headers}')
+    writeLog(f'body:{body}')
 
     token_response = requests.post(
         token_url,
@@ -121,7 +119,7 @@ def callback():
         data=body,
         auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
     )
-    logging.info('Got the response')
+    writeLog('Got the response')
 
     # Parse the tokens!
     client.parse_request_body_response(json.dumps(token_response.json()))
@@ -132,7 +130,7 @@ def callback():
     userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
     uri, headers, body = client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers=headers, data=body)
-    logging.info('Got the user infor')
+    writeLog('Got the user infor')
     # You want to make sure their email is verified.
     # The user authenticated with Google, authorized your
     # app, and now you've verified their email through Google!
@@ -144,7 +142,7 @@ def callback():
     else:
         return "User email not available or not verified by Google.", 400
     
-    logging.info('Started creating the db entry')
+    writeLog('Started creating the db entry')
     # Create a user in your db with the information provided
     # by Google
     user = User(
@@ -166,6 +164,15 @@ def callback():
 def logout():
     logout_user()
     return redirect(url_for("index"))
+
+def writeLog(log: str):
+    basepath = os.path.dirname(__file__)
+    today = os.date.today()
+    filepath = os.path.abspath(os.path.join(basepath, "..", "..", "LogFiles", "MyBot_" + today.strftime("%Y-%m-%d") + ".log"))
+    f = open(filepath, "a+")
+    f.write(today.strftime("%Y-%m-%d %H:%M:%S") + " " + log)
+    f.write("\n")
+    f.close()
 
 if __name__ == "__main__":
     app.run()
