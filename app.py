@@ -113,7 +113,7 @@ def callback():
     writeLog(f'token_url:{token_url}')
     writeLog(f'headers:{headers}')
     writeLog(f'body:{body}')
-
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     token_response = requests.post(
         token_url,
         headers=headers,
