@@ -1,6 +1,7 @@
 # Python standard libraries
 import json
 import os
+import datetime
 import sqlite3
 import traceback
 
@@ -167,7 +168,7 @@ def logout():
 
 def writeLog(log: str):
     basepath = os.path.dirname(__file__)
-    today = os.date.today()
+    today = datetime.date.today()
     filepath = os.path.abspath(os.path.join(basepath, "app.log"))
     f = open(filepath, "a+")
     f.write(today.strftime("%Y-%m-%d %H:%M:%S") + " " + log)
