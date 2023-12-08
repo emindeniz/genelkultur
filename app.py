@@ -4,6 +4,7 @@ import os
 import sqlite3
 import traceback
 import logging
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
 # Third-party libraries
 from flask import Flask, redirect, request, url_for
