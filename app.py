@@ -105,7 +105,7 @@ def callback():
     # Prepare and send a request to get tokens! Yay tokens!
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
-        authorization_response=request.url,
+        authorization_response=request.url.replace('http:','https:'),
         redirect_url=request.base_url,
         code=code
     )
