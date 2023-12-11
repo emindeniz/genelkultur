@@ -169,7 +169,7 @@ def logout():
 def writeLog(log: str):
     basepath = os.path.dirname(__file__)
     today = datetime.date.today()
-    print(basepath)
+    print(f'Testing print statements {basepath}')
     filepath = os.path.abspath(os.path.join(basepath, "..", "..", "LogFiles", "MyBot_" + today.strftime("%Y-%m-%d") + ".log"))
     f = open(filepath, "a+")
     f.write(today.strftime("%Y-%m-%d %H:%M:%S") + " " + log)
