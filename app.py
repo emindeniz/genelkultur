@@ -106,7 +106,7 @@ def callback():
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url.replace('http:','https:'),
-        redirect_url=request.base_url,
+        redirect_url=request.base_url.replace('http:','https:'),
         code=code
     )
     print(f'redirect uri {request.base_url}')
