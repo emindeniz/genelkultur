@@ -109,6 +109,7 @@ def callback():
         redirect_url=request.base_url,
         code=code
     )
+    print(f'redirect uri {request.base_url}')
     print('Created token request code')
     print(f'token_url:{token_url}')
     print(f'headers:{headers}')
