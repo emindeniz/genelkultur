@@ -96,7 +96,7 @@ def login():
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
-    print('Got the code')
+    print(f'Got the code {code}')
     # Find out what URL to hit to get tokens that allow you to ask for
     # things on behalf of a user
     google_provider_cfg = get_google_provider_cfg()
@@ -113,7 +113,6 @@ def callback():
     print(f'token_url:{token_url}')
     print(f'headers:{headers}')
     print(f'body:{body}')
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     token_response = requests.post(
         token_url,
         headers=headers,
@@ -131,7 +130,7 @@ def callback():
     userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
     uri, headers, body = client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers=headers, data=body)
-    print('Got the user infor')
+    print('Got the user info')
     # You want to make sure their email is verified.
     # The user authenticated with Google, authorized your
     # app, and now you've verified their email through Google!
