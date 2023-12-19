@@ -50,6 +50,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
+    print(os.environ["AZURE_SQL_CONNECTIONSTRING"])
     if current_user.is_authenticated:
         return (
             "<p>Hello, {}! You're logged in! Email: {}</p>"
