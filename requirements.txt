@@ -1,3 +1,5 @@
+pyodbc
+azure-identity
 requests==2.21.0
 Flask==2.0.3
 oauthlib==3.0.1

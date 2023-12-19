@@ -1,19 +1,20 @@
-# http://flask.pocoo.org/docs/1.0/tutorial/database/
-import sqlite3
-
+import os
+import pyodbc, struct
+from azure import identity
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-import os
+from typing import Union
 
-DATABASE = 'sqlite_db'
+connection_string = os.environ["AZURE_SQL_CONNECTIONSTRING"]
 
 def get_db():
     if "db" not in g:
-        g.db = sqlite3.connect(
-            DATABASE, detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+        credential = identity.DefaultAzureCredential(exclude_interactive_browser_credential=False)
+        token_bytes = credential.get_token("https://database.windows.net/.default").token.encode("UTF-16-LE")
+        token_struct = struct.pack(f'<I{len(token_bytes)}s', len(token_bytes), token_bytes)
+        SQL_COPT_SS_ACCESS_TOKEN = 1256  # This connection option is defined by microsoft in msodbcsql.h
+        g.db = pyodbc.connect(connection_string, attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct})
 
     return g.db
 
@@ -23,18 +24,5 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
-def init_db():
-    db = get_db()
-    with current_app.open_resource("schema.sql") as f:
-        db.executescript(f.read().decode("utf8"))
-
-@click.command("init-db")
-@with_appcontext
-def init_db_command():
-    """Clear the existing data and create new tables."""
-    init_db()
-    click.echo("Initialized the database.")
-
 def init_app(app):
     app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
