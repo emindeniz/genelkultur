@@ -13,7 +13,7 @@ class User(UserMixin):
     def get(user_id):
         db = get_db()
         user = db.execute(
-            f"SELECT * FROM user WHERE id = \'{user_id}\'"
+            f"SELECT * FROM [dbo].[user] WHERE id = \'{user_id}\'"
         ).fetchone()
         if not user:
             return None
