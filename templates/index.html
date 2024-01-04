@@ -3,38 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Your Web Application</title>
+    <title>Welcome Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            text-align: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
         }
 
-        .welcome-container {
-            text-align: center;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 20px;
         }
 
-        h1 {
-            color: #333;
+        .login-link {
+            margin-bottom: 20px;
         }
 
-        p {
-            color: #555;
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .links a {
+            display: block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-
-<div class="welcome-container">
-    <h1>Welcome to Your Web Application</h1>
-    <p>This is a simple welcome page for your web application. You can customize and enhance it according to your needs.</p>
-</div>
-<a href="/.auth/login/google?post_login_redirect_uri=/Home/Index">Log in</a>
+    <div class="container">
+        <div class="login-link">
+            <a href="#">Login</a>
+        </div>
+        <div class="links">
+            <a href="#">Play</a>
+            <a href="#">My Stats</a>
+            <a href="#">Leaderboard</a>
+        </div>
+    </div>
 </body>
 </html>
