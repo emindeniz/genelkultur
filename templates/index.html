@@ -52,9 +52,9 @@
   <p>Her türlü genel kültür yarışmaları için pratik yapabileceğiniz bir site</p>
   <div class="button-container">
     {% if not logged_in %}
-        <a href="{{ url_for('login') }}">Login</a>
+        <button class="login-button" href="{{ url_for('login') }}">Login</a>
     {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <button class="login-button" href="{{ url_for('logout') }}">Logout</a>
     {% endif %}
     <button class="play-button">Oyna</button>
   </div>
