@@ -6,7 +6,7 @@ import sqlite3
 import traceback
 
 # Third-party libraries
-from flask import Flask, redirect, request, url_for
+from flask import Flask, redirect, request, url_for, render_template
 from flask_login import (
     LoginManager,
     current_user,
@@ -50,18 +50,10 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    print(os.environ["AZURE_SQL_CONNECTIONSTRING"])
     if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
+        return render_template('index.html', logged_in=True)
     else:
-        return '<a class="button" href="/login">Google Login</a>'
+        return render_template('index.html', logged_in=False)
     
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
@@ -157,6 +149,22 @@ def logout():
 if __name__ == "__main__":
     app.run()
     # app.run(ssl_context="adhoc")
+
+
+# @app.route("/")
+# def index():
+#     print(os.environ["AZURE_SQL_CONNECTIONSTRING"])
+#     if current_user.is_authenticated:
+#         return (
+#             "<p>Hello, {}! You're logged in! Email: {}</p>"
+#             "<div><p>Google Profile Picture:</p>"
+#             '<img src="{}" alt="Google profile pic"></img></div>'
+#             '<a class="button" href="/logout">Logout</a>'.format(
+#                 current_user.name, current_user.email, current_user.profile_pic
+#             )
+#         )
+#     else:
+#         return '<a class="button" href="/login">Google Login</a>'
 
 # import os
 
