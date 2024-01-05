@@ -51,8 +51,10 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
+        print("Rendering template for logout")
         return render_template('index.html', logged_in=True)
     else:
+        print("Rendering template for login")
         return render_template('index.html', logged_in=False)
     
 def get_google_provider_cfg():
