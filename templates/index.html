@@ -33,7 +33,7 @@
       gap: 10px;
     }
 
-    .login-button, .play-button {
+    .login-button, .play-button .logout-button{
       padding: 10px 20px;
       font-size: 16px;
       text-decoration: none;
@@ -54,7 +54,7 @@
     {% if not logged_in %}
         <button class="login-button" href="{{ url_for('login') }}">Login</a>
     {% else %}
-        <button class="login-button" href="{{ url_for('logout') }}">Logout</a>
+        <button class="logout-button" href="{{ url_for('logout') }}">Logout</a>
     {% endif %}
     <button class="play-button">Oyna</button>
   </div>
