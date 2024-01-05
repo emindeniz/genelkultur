@@ -58,7 +58,7 @@ def index():
         return render_template('index.html', logged_in=False)
     
 @app.route("/play")
-def index():
+def play():
     return render_template('play.html')
     
 def get_google_provider_cfg():
