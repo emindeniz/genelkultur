@@ -57,6 +57,10 @@ def index():
         print("Rendering template for login")
         return render_template('index.html', logged_in=False)
     
+@app.route("/play")
+def index():
+    return render_template('play.html')
+    
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
