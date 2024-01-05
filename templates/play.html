@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pop Quiz</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #quiz-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .letter-box {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    margin: 5px;
+    text-align: center;
+    line-height: 20px; /* Align text vertically in the middle of the box */
+    vertical-align: top; /* Align text at the top of the box */
+  }
+  </style>
+</head>
+<body onload="startQuiz()">
+
+<div id="quiz-container">
+  <h2 id="question">Question: What is the capital of France?</h2>
+  
+  <label for="score">Score:</label>
+  <input type="text" id="score" value="100" readonly><br>
+
+  <div id="letter-boxes"></div><br>
+
+  <label for="user-input">Your Answer:</label>
+  <input type="text" id="user-input"><br>
+
+  <div id="timer">Time left: <span id="countdown">60</span> seconds</div>
+</div>
+
+<script>
+  let answer = "paris"; // Set the correct answer
+  let score = 100;
+  let timer;
+
+  function startQuiz() {
+    // Initialize the letter boxes
+    initializeLetterBoxes();
+
+    // Start the countdown timer
+    startTimer();
+
+    // Display letters one by one
+    let index = 0;
+    timer = setInterval(function() {
+      if (index < answer.length) {
+        document.getElementById(`box-${index}`).textContent = answer[index].toUpperCase();
+        score -= 10;
+        document.getElementById('score').value = score;
+        index++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 10000);
+  }
+
+  function initializeLetterBoxes() {
+    const letterBoxes = document.getElementById("letter-boxes");
+    letterBoxes.innerHTML = '';
+
+    for (let i = 0; i < answer.length; i++) {
+      const box = document.createElement("div");
+      box.className = "letter-box";
+      box.id = `box-${i}`;
+      letterBoxes.appendChild(box);
+    }
+  }
+
+  function startTimer() {
+    let countdown = 60;
+    const countdownElement = document.getElementById("countdown");
+    const timerElement = document.getElementById("timer");
+
+    const timerInterval = setInterval(function() {
+      countdownElement.textContent = countdown;
+      countdown--;
+
+      if (countdown < 0) {
+        clearInterval(timerInterval);
+        timerElement.textContent = "Time's up!";
+      }
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
