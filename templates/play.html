@@ -33,7 +33,7 @@
 <body onload="startQuiz()">
 
 <div id="quiz-container">
-  <h2 id="question">Question: What is the capital of France?</h2>
+  <h2 id="question">{{question_text}}</h2>
   
   <label for="score">Score:</label>
   <input type="text" id="score" value="100" readonly><br>
@@ -47,8 +47,8 @@
 </div>
 
 <script>
-  let answer = "paris"; // Set the correct answer
-  let score = 100;
+  let answer = "{{question_answer}}"; // Set the correct answer
+  let score = {{ question_score }};
   let timer;
 
   function startQuiz() {

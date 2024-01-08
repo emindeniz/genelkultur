@@ -19,6 +19,7 @@ import requests
 
 # Internal imports
 from user import User
+from question import Question
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -58,8 +59,13 @@ def index():
         return render_template('index.html', logged_in=False)
     
 @app.route("/play")
+@login_required
 def play():
-    return render_template('play.html')
+    question = Question().get_random()
+
+    return render_template('play.html', question_text = question.question_text,
+                           question_answer = question.answer,
+                           question_score = question.score)
     
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
