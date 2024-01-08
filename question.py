@@ -1,7 +1,7 @@
 from db import get_db
 
 class Question():
-    def __init__(self, id, question_text, answer, qtype, category):
+    def __init__(self, id=None, question_text=None, answer=None, qtype=None, category=None):
         self.id = id
         self.question_text = question_text
         self.answer = answer
