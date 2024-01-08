@@ -1,10 +1,11 @@
 from db import get_db
 
 class Question():
-    def __init__(self, id=None, question_text=None, answer=None, qtype=None, category=None):
+    def __init__(self, id=None, question_text=None, answer=None, score=None, qtype=None, category=None):
         self.id = id
         self.question_text = question_text
         self.answer = answer
+        self.score = score
         self.qtype = qtype
         self.category = category
 
@@ -23,8 +24,9 @@ class Question():
             id=question[0], 
             question_text=question[1], 
             answer=question[2], 
-            qtype=question[3],
-            category = question[4]
+            score = question[3],
+            qtype= question[4],
+            category = question[5]
         )
 
         return question
