@@ -43,6 +43,8 @@
   <label for="user-input">Your Answer:</label>
   <input type="text" id="user-input"><br>
 
+  <button onclick="submitAnswer()">Submit</button><br>
+
   <div id="timer">Time left: <span id="countdown">60</span> seconds</div>
 </div>
 
@@ -98,6 +100,14 @@
         timerElement.textContent = "Time's up!";
       }
     }, 1000);
+  }
+
+  function submitAnswer() {
+    // Add your logic for submitting the answer here
+    const userAnswer = document.getElementById("user-input").value;
+    // Add your validation or comparison logic with the correct answer
+    // For now, let's just alert the user's answer
+    alert("Submitted Answer: " + userAnswer);
   }
 </script>
 
