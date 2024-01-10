@@ -71,12 +71,12 @@
   timer = setInterval(function () {
     if (index < answer.length) {
       document.getElementById(`box-${index}`).textContent = answer[index].toUpperCase();
-      score -= 10;
-      document.getElementById('score').value = score;
       index++;
     } else {
       clearInterval(timer);
       // Decrement the score after displaying all letters
+      score -= 10;
+      document.getElementById('score').value = score;
     }
   }, 10000);
 }
