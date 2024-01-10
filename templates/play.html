@@ -56,6 +56,7 @@
 <script>
   let answer = "{{question_answer}}"; // Set the correct answer
   let score = {{ question_score }};
+  let q_id = {{ question_id }};
   let timer;
 
   function startQuiz() {
@@ -112,8 +113,46 @@
     const userAnswer = document.getElementById("user-input").value;
     // Add your validation or comparison logic with the correct answer
     // For now, let's just alert the user's answer
-    alert("Submitted Answer: " + userAnswer);
+    // Example usage
+    checkAnswerOnFlask({ 'userAnswer': userAnswer,'question_id':q_id });
   }
+
+  function checkAnswerOnFlask(data) {
+    fetch('/check_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response from check_answer endpoint in flask', data);
+
+        // Check for a specific key in the response
+        if (data.hasOwnProperty('isAnswerCorrect')) {
+            // Perform an action based on the value of 'processed_result'
+            if (data.isAnswerCorrect.toLowerCase()=='true'){
+              alert('Correct Answer')
+            }
+            else {
+              alert('Wrong Answer')
+            } 
+          } else {
+            // Handle other cases or raise an error if expected keys are missing
+            console.error('Unexpected response format from check_answer endpoint in flask');
+          }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
 </script>
 
 </body>

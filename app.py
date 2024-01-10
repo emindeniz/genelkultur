@@ -4,9 +4,10 @@ import os
 import datetime
 import sqlite3
 import traceback
+import random
 
 # Third-party libraries
-from flask import Flask, redirect, request, url_for, render_template
+from flask import Flask, redirect, request, url_for, render_template, jsonify
 from flask_login import (
     LoginManager,
     current_user,
@@ -64,8 +65,23 @@ def play():
     question = Question().get_random()
 
     return render_template('play.html', question_text = question.question_text,
-                           question_answer = question.answer,
+                           question_id = question.id,
                            question_score = question.score)
+
+@app.route('/check_answer', methods=['POST'])
+def check_answer():
+    print('Checking Answer')
+    data_from_js = request.get_json()
+    # Process data and return a response
+    question_id = data_from_js.get('question_id')
+    user_answer = data_from_js.get('userAnswer')
+    print(question_id,user_answer)
+    if random.random()>0.5:
+        result = {'isAnswerCorrect': 'True'}
+    else:
+        result = {'isAnswerCorrect': 'False'}
+    return jsonify(result)
+
     
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
