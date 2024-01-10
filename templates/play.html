@@ -60,25 +60,27 @@
   let timer;
 
   function startQuiz() {
-    // Initialize the letter boxes
-    initializeLetterBoxes();
+  // Initialize the letter boxes
+  initializeLetterBoxes();
 
-    // Start the countdown timer
-    startTimer();
+  // Start the countdown timer
+  startTimer();
 
-    // Display letters one by one
-    let index = 0;
-    timer = setInterval(function() {
-      if (index < answer.length) {
-        document.getElementById(`box-${index}`).textContent = answer[index].toUpperCase();
-        score -= 10;
-        document.getElementById('score').value = score;
-        index++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 10000);
-  }
+  // Display letters one by one
+  let index = 0;
+  timer = setInterval(function () {
+    if (index < answer.length) {
+      document.getElementById(`box-${index}`).textContent = answer[index].toUpperCase();
+      index++;
+    } else {
+      clearInterval(timer);
+      // Decrement the score after displaying all letters
+      score -= 10;
+      document.getElementById('score').value = score;
+    }
+  }, 10000);
+}
+
 
   function initializeLetterBoxes() {
     const letterBoxes = document.getElementById("letter-boxes");
