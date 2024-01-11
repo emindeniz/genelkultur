@@ -72,7 +72,7 @@
     if (index < answer.length) {
       document.getElementById(`box-${index}`).textContent = answer[index].toUpperCase();
       score -= 10;
-      document.getElementById('score').innerText = score;
+      document.getElementById('score').value = score;
       index++;
     } else {
       clearInterval(timer);
