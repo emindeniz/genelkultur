@@ -41,7 +41,7 @@
   <h2 id="question">{{question_text}}</h2>
   
   <label for="score">Score:</label>
-  <input type="text" id="score" value="100" readonly><br>
+  <input type="text" id="score" value={{question_score}} readonly><br>
 
   <div id="letter-boxes"></div><br>
 
@@ -76,7 +76,7 @@
       clearInterval(timer);
       // Decrement the score after displaying all letters
       score -= 10;
-      document.getElementById('score').value = score;
+      document.getElementById('score').innerText = score;
     }
   }, 10000);
 }
