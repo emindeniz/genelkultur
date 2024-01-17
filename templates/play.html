@@ -70,17 +70,27 @@
   // Display letters one by one
   let index = 0;
   let numbersArray = []; // Numbers that have already appeared
-  timer = setInterval(function () {
-    if (index <  Math.ceil(answerLength / 2) ) {
-      const response = await getRandomLetter(numbersArray,q_id); // Response is a tuple: letter, letter_index
-      numbersArray.push(response[1])
-      document.getElementById(`box-${response[1]}`).textContent = response[0];
-      score -= 10;
-      document.getElementById('score').value = score;
-      index++;
+
+
+  const displayLetters = async function () {
+    if (index < Math.ceil(answerLength / 2)) {
+      try {
+        const response = await getRandomLetter(numbersArray, q_id);
+        numbersArray.push(response[1]);
+        document.getElementById(`box-${response[1]}`).textContent = response[0];
+        score -= 10;
+        document.getElementById('score').value = score;
+        index++;
+      } catch (error) {
+        console.error('Error fetching random letter:', error);
+      }
     } else {
       clearInterval(timer);
     }
+  };
+
+  timer = setInterval(() => {
+    displayLetters();
   }, 10000);
 }
 
