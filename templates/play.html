@@ -70,8 +70,7 @@
   // Display letters one by one
   let index = 0;
   let numbersArray = []; // Numbers that have already appeared
-
-
+  
   const displayLetters = async function () {
     if (index < Math.ceil(answerLength / 2)) {
       try {
@@ -84,14 +83,13 @@
       } catch (error) {
         console.error('Error fetching random letter:', error);
       }
+
+      // Call the function recursively after a delay
+      setTimeout(displayLetters, 10000);
     } else {
       clearInterval(timer);
     }
-  };
 
-  timer = setInterval(() => {
-    displayLetters();
-  }, 10000);
 }
 
 
