@@ -70,7 +70,7 @@
   // Display letters one by one
   let index = 0;
   let numbersArray = []; // Numbers that have already appeared
-  
+
   const displayLetters = async function () {
     if (index < Math.ceil(answerLength / 2)) {
       try {
@@ -89,7 +89,10 @@
     } else {
       clearInterval(timer);
     }
+  };
 
+  // Start the initial call to displayLetters
+  displayLetters();
 }
 
 
