@@ -72,7 +72,7 @@
   let numbersArray = []; // Numbers that have already appeared
   timer = setInterval(function () {
     if (index <  Math.ceil(answerLength / 2) ) {
-      response = getRandomLetter(numbersArray,q_id); // Response is a tuple: letter, letter_index
+      const response = await getRandomLetter(numbersArray,q_id); // Response is a tuple: letter, letter_index
       numbersArray.push(response[1])
       document.getElementById(`box-${response[1]}`).textContent = response[0];
       score -= 10;
