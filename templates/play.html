@@ -56,21 +56,25 @@
 <script>
   let answer = "paris"; // Set the correct answer
   let score = {{ question_score }};
+  let answerLength = {{ question_num_letters }}
   let q_id = {{ question_id }};
   let timer;
 
   function startQuiz() {
   // Initialize the letter boxes
-  initializeLetterBoxes();
+  initializeLetterBoxes(answerLength);
 
   // Start the countdown timer
   startTimer();
 
   // Display letters one by one
   let index = 0;
+  let numbersArray = []; // Numbers that have already appeared
   timer = setInterval(function () {
-    if (index < answer.length) {
-      document.getElementById(`box-${index}`).textContent = answer[index].toUpperCase();
+    if (index <  Math.ceil(answerLength / 2) ) {
+      response = getRandomLetter(numbersArray,q_id); // Response is a tuple: letter, letter_index
+      numbersArray.push(letter_index)
+      document.getElementById(`box-${response[1]}`).textContent = response[0];
       score -= 10;
       document.getElementById('score').value = score;
       index++;
@@ -81,11 +85,11 @@
 }
 
 
-  function initializeLetterBoxes() {
+  function initializeLetterBoxes(answerLength) {
     const letterBoxes = document.getElementById("letter-boxes");
     letterBoxes.innerHTML = '';
 
-    for (let i = 0; i < answer.length; i++) {
+    for (let i = 0; i < answerLength; i++) {
       const box = document.createElement("div");
       box.className = "letter-box";
       box.id = `box-${i}`;
@@ -147,6 +151,37 @@
           } else {
             // Handle other cases or raise an error if expected keys are missing
             console.error('Unexpected response format from check_answer endpoint in flask');
+          }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+function getRandomLetter(numbersArray, q_id) {
+    fetch('/getRandomLetter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 'numbersArray': numbersArray,'question_id':q_id }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response from getRandomLetter endpoint in flask', data);
+
+        // Check for a specific key in the response
+        if (data.hasOwnProperty('letter') && data.hasOwnProperty('letterIndex')) {
+            // Perform an action based on the value of 'processed_result'
+            return [data.letter,parseInt(data.letterIndex, 10)] 
+          } else {
+            // Handle other cases or raise an error if expected keys are missing
+            console.error('Unexpected response format from getRandomLetter endpoint in flask');
           }
     })
     .catch((error) => {

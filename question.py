@@ -30,3 +30,24 @@ class Question():
         )
 
         return question
+    
+    @staticmethod
+    def get_question(question_id):
+        db = get_db()
+        question = db.execute(
+            f"""
+            SELECT * [dbo].[questions] 
+            WHERE id={question_id};
+            """
+        ).fetchone()
+
+        question = Question(
+            id=question[0], 
+            question_text=question[1], 
+            answer=question[2], 
+            score = question[3],
+            qtype= question[4],
+            category = question[5]
+        )
+
+        return question

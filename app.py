@@ -66,7 +66,8 @@ def play():
 
     return render_template('play.html', question_text = question.question_text,
                            question_id = question.id,
-                           question_score = question.score)
+                           question_score = question.score,
+                           question_num_letters = len(question.answer))
 
 @app.route('/check_answer', methods=['POST'])
 def check_answer():
@@ -80,6 +81,17 @@ def check_answer():
         result = {'isAnswerCorrect': 'True'}
     else:
         result = {'isAnswerCorrect': 'False'}
+    return jsonify(result)
+
+@app.route('/getRandomLetter', methods=['POST'])
+def getRandomLetter():
+    print('getting random letter')
+    data_from_js = request.get_json()
+    # Process data and return a response
+    question_id = data_from_js.get('question_id')
+    numbersArray = data_from_js.get('numbersArray')
+    print(question_id,numbersArray)
+    result = {'letter':'A','letterIndex':0}
     return jsonify(result)
 
     
