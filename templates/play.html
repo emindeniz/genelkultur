@@ -73,7 +73,7 @@
   timer = setInterval(function () {
     if (index <  Math.ceil(answerLength / 2) ) {
       response = getRandomLetter(numbersArray,q_id); // Response is a tuple: letter, letter_index
-      numbersArray.push(letter_index)
+      numbersArray.push(response[1])
       document.getElementById(`box-${response[1]}`).textContent = response[0];
       score -= 10;
       document.getElementById('score').value = score;
@@ -159,7 +159,7 @@
 }
 
 function getRandomLetter(numbersArray, q_id) {
-    fetch('/getRandomLetter', {
+    return fetch('/getRandomLetter', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
