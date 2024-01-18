@@ -15,6 +15,7 @@ from flask_login import (
     login_user,
     logout_user,
 )
+from flask_caching import Cache
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 
@@ -36,6 +37,9 @@ GOOGLE_DISCOVERY_URL = (
 # Flask app setup
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+
+# Configure the app to use Flask-Caching
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # User session management setup
 # https://flask-login.readthedocs.io/en/latest
@@ -90,9 +94,17 @@ def getRandomLetter():
     # Process data and return a response
     question_id = data_from_js.get('question_id')
     numbersArray = data_from_js.get('numbersArray')
+    question = get_question(question_id=question_id)
     print(question_id,numbersArray)
-    result = {'letter':'A','letterIndex':0}
+    not_returned_yet = [i for i in range(len(question.answer)) if i not in numbersArray]
+    random_idx = random.choice(not_returned_yet)
+    result = {'letter':question.answer[random_idx],'letterIndex':random_idx}
     return jsonify(result)
+
+@cache.cached(timeout=300)
+def get_question(question_id):
+    question = Question().get_question(question_id=question_id)
+    return question
 
     
 def get_google_provider_cfg():
