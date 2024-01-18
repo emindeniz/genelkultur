@@ -36,7 +36,7 @@ class Question():
         db = get_db()
         question = db.execute(
             f"""
-            SELECT * [dbo].[questions] 
+            SELECT * from [dbo].[questions] 
             WHERE id={question_id};
             """
         ).fetchone()
