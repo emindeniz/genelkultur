@@ -33,6 +33,7 @@ class Question():
     
     @staticmethod
     def get_question(question_id):
+        print('database query is not cached')
         db = get_db()
         question = db.execute(
             f"""
