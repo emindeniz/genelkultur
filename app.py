@@ -80,8 +80,9 @@ def check_answer():
     # Process data and return a response
     question_id = data_from_js.get('question_id')
     user_answer = data_from_js.get('userAnswer')
+    question = get_question(question_id=question_id)
     print(question_id,user_answer)
-    if random.random()>0.5:
+    if user_answer.lower()==question.answer.lower():
         result = {'isAnswerCorrect': 'True'}
     else:
         result = {'isAnswerCorrect': 'False'}
