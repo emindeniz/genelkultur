@@ -132,6 +132,8 @@
       if (countdown < 0) {
         clearInterval(timerInterval);
         timerElement.textContent = "Time's up!";
+        pickAnotherQuestion()
+
       }
     }, 1000);
   }

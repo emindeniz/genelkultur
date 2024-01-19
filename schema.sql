@@ -33,9 +33,9 @@ order by id;
 Drop table [dbo].[user];
 
 CREATE TABLE [dbo].[user] (
-  id NVARCHAR PRIMARY KEY,
+  id NVARCHAR(300) PRIMARY KEY,
   name NVARCHAR(MAX) NOT NULL,
-  email VARCHAR UNIQUE NOT NULL,
+  email NVARCHAR(MAX) NOT NULL,
   profile_pic VARCHAR(MAX) NOT NULL,
   questions_asked INT NOT NULL DEFAULT 0,
   questions_correct INT NOT NULL DEFAULT 0,
