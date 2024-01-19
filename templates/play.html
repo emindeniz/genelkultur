@@ -29,10 +29,14 @@
     vertical-align: top; /* Align text at the top of the box */
   }
   #user-input,
-  #timer,
-  button {
-    margin-top: 20px; /* Adjust the margin as needed */
-  }
+        #timer,
+        button-container {
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
+        button {
+            margin: 0 5px; /* Adjust the margin as needed */
+        }
   </style>
 </head>
 <body onload="startQuiz()">
@@ -48,7 +52,12 @@
   <label for="user-input">Your Answer:</label>
   <input type="text" id="user-input"><br>
 
-  <button onclick="submitAnswer()">Submit</button><br>
+  <!-- Button container for horizontal alignment -->
+   <div id="button-container" class="button-container">
+    <button onclick="submitAnswer()">Submit Answer</button>
+    <!-- Add a new button for picking another question -->
+    <button onclick="pickAnotherQuestion()">Pick Another Question</button>
+  </div>
 
   <div id="timer">Time left: <span id="countdown">60</span> seconds</div>
 </div>
@@ -155,6 +164,7 @@
             // Perform an action based on the value of 'processed_result'
             if (data.isAnswerCorrect.toLowerCase()=='true'){
               alert('Correct Answer')
+              window.location.href = '/play';
             }
             else {
               alert('Wrong Answer')
@@ -198,6 +208,13 @@ function getRandomLetter(numbersArray, q_id) {
     .catch((error) => {
         console.error('Error:', error);
     });
+}
+
+// Add a function to handle picking another question and redirecting to /play
+function pickAnotherQuestion() {
+    // You can add logic here to pick another question
+    // For example, you can reload the page or redirect to /play
+    window.location.href = '/play'; // Adjust the URL as needed
 }
 
 </script>
