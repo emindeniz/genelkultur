@@ -28,7 +28,10 @@
     line-height: 20px; /* Align text vertically in the middle of the box */
     vertical-align: top; /* Align text at the top of the box */
   }
-  #user-input,
+  #user-input {
+        margin-bottom: 20px; /* Increase the margin as needed */
+    }
+
         #timer,
         button-container {
             margin-top: 20px; /* Adjust the margin as needed */
@@ -44,19 +47,19 @@
 <div id="quiz-container">
   <h2 id="question">{{question_text}}</h2>
   
-  <label for="score">Score:</label>
+  <label for="score">Puan:</label>
   <input type="text" id="score" value={{question_score}} readonly><br>
 
   <div id="letter-boxes"></div><br>
 
-  <label for="user-input">Your Answer:</label>
+  <label for="user-input">Cevabi yaz:</label>
   <input type="text" id="user-input"><br>
 
   <!-- Button container for horizontal alignment -->
    <div id="button-container" class="button-container">
-    <button onclick="submitAnswer()">Submit Answer</button>
+    <button onclick="submitAnswer()">Cevapla</button>
     <!-- Add a new button for picking another question -->
-    <button onclick="pickAnotherQuestion()">Pick Another Question</button>
+    <button onclick="pickAnotherQuestion()">Başka soru</button>
   </div>
 
   <div id="timer">Time left: <span id="countdown">60</span> seconds</div>

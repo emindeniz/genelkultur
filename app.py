@@ -67,7 +67,7 @@ def index():
 @login_required
 def play():
     question = Question().get_random()
-
+    current_user.increment_asked()
     return render_template('play.html', question_text = question.question_text,
                            question_id = question.id,
                            question_score = question.score,
@@ -83,8 +83,10 @@ def check_answer():
     question = get_question(question_id=question_id)
     print(question_id,user_answer)
     if user_answer.lower()==question.answer.lower():
+        current_user.increment_correct()
         result = {'isAnswerCorrect': 'True'}
     else:
+        current_user.increment_incorrect()
         result = {'isAnswerCorrect': 'False'}
     return jsonify(result)
 

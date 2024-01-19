@@ -9,6 +9,36 @@ class User(UserMixin):
         self.email = email
         self.profile_pic = profile_pic
 
+    def increment_asked(self):
+        db = get_db()
+        db.execute(
+            f"""
+            UPDATE [dbo].[user]
+            SET questions_asked = questions_asked + 1 WHERE id = \'{self.id}\'
+            """
+        )
+        db.commit()
+    
+    def increment_correct(self):
+        db = get_db()
+        db.execute(
+            f"""
+            UPDATE [dbo].[user]
+            SET questions_correct = questions_correct + 1 WHERE id = \'{self.id}\'
+            """
+        )
+        db.commit()
+
+    def increment_incorrect(self):
+        db = get_db()
+        db.execute(
+            f"""
+            UPDATE [dbo].[user]
+            SET questions_incorrect = questions_incorrect + 1 WHERE id = \'{self.id}\'
+            """
+        )
+        db.commit()
+
     @staticmethod
     def get(user_id):
         db = get_db()
