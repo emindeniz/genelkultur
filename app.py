@@ -73,6 +73,14 @@ def play():
                            question_score = question.score,
                            question_num_letters = len(question.answer))
 
+@app.route("/stats")
+@login_required
+def stats():
+    return render_template('play.html', question_text = question.question_text,
+                           question_id = question.id,
+                           question_score = question.score,
+                           question_num_letters = len(question.answer))
+
 @app.route('/check_answer', methods=['POST'])
 def check_answer():
     print('Checking Answer')
