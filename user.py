@@ -11,33 +11,60 @@ class User(UserMixin):
 
     def increment_asked(self):
         db = get_db()
-        db.execute(
-            f"""
-            UPDATE [dbo].[user]
-            SET questions_asked = questions_asked + 1 WHERE id = \'{self.id}\'
-            """
-        )
-        db.commit()
-    
+        try:
+            db.execute(
+                f"""
+                UPDATE [dbo].[user]
+                SET questions_asked = questions_asked + 1 WHERE id = \'{self.id}\'
+                """
+            )
+            db.commit()
+        except Exception as e:
+            # Handle the exception, print an error message, or take appropriate action
+            print(f"Error: {e}")
+            # Rollback the transaction to undo any changes made before the exception occurred
+            db.rollback()
+        finally:
+            # Optionally close the connection
+            db.close()
+
     def increment_correct(self):
         db = get_db()
-        db.execute(
-            f"""
-            UPDATE [dbo].[user]
-            SET questions_correct = questions_correct + 1 WHERE id = \'{self.id}\'
-            """
-        )
-        db.commit()
+        try:
+            db.execute(
+                f"""
+                UPDATE [dbo].[user]
+                SET questions_correct = questions_correct + 1 WHERE id = \'{self.id}\'
+                """
+            )
+            db.commit()
+        except Exception as e:
+            # Handle the exception, print an error message, or take appropriate action
+            print(f"Error: {e}")
+            # Rollback the transaction to undo any changes made before the exception occurred
+            db.rollback()
+        finally:
+            # Optionally close the connection
+            db.close()
 
     def increment_incorrect(self):
         db = get_db()
-        db.execute(
-            f"""
-            UPDATE [dbo].[user]
-            SET questions_incorrect = questions_incorrect + 1 WHERE id = \'{self.id}\'
-            """
-        )
-        db.commit()
+        try:
+            db.execute(
+                f"""
+                UPDATE [dbo].[user]
+                SET questions_incorrect = questions_incorrect + 1 WHERE id = \'{self.id}\'
+                """
+            )
+            db.commit()
+        except Exception as e:
+            # Handle the exception, print an error message, or take appropriate action
+            print(f"Error: {e}")
+            # Rollback the transaction to undo any changes made before the exception occurred
+            db.rollback()
+        finally:
+            # Optionally close the connection
+            db.close()
 
     @staticmethod
     def get(user_id):
@@ -56,9 +83,18 @@ class User(UserMixin):
     @staticmethod
     def create(id_, name, email, profile_pic):
         db = get_db()
-        db.execute(
-            "INSERT INTO [dbo].[user] (id, name, email, profile_pic) "
-            "VALUES (?, ?, ?, ?)",
-            (id_, name, email, profile_pic),
-        )
-        db.commit()
+        try:
+            db.execute(
+                "INSERT INTO [dbo].[user] (id, name, email, profile_pic) "
+                "VALUES (?, ?, ?, ?)",
+                (id_, name, email, profile_pic),
+            )
+            db.commit()
+        except Exception as e:
+            # Handle the exception, print an error message, or take appropriate action
+            print(f"Error: {e}")
+            # Rollback the transaction to undo any changes made before the exception occurred
+            db.rollback()
+        finally:
+            # Optionally close the connection
+            db.close()

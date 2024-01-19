@@ -33,7 +33,7 @@ order by id;
 Drop table [dbo].[user];
 
 CREATE TABLE [dbo].[user] (
-  id VARCHAR PRIMARY KEY,
+  id NVARCHAR PRIMARY KEY,
   name NVARCHAR(MAX) NOT NULL,
   email VARCHAR UNIQUE NOT NULL,
   profile_pic VARCHAR(MAX) NOT NULL,
