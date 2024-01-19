@@ -101,7 +101,7 @@ def getRandomLetter():
     result = {'letter':question.answer[random_idx],'letterIndex':random_idx}
     return jsonify(result)
 
-# @cache.cached(timeout=120)
+@cache.memoize(timeout=120)
 def get_question(question_id):
     question = Question().get_question(question_id=question_id)
     return question
