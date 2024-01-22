@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstatistikler </title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kullanıcı İstatistikleri</h1>
+    </header>
+
+    <section id="personalInfo">
+        <h2>Kullanıcı Bilgileri</h2>
+        <ul>
+            <li><img src={{user_pic}} alt="Profile Picture"></li>
+            <li><strong>İsim:</strong> {{user_name}}</li>
+            <li><strong>Email:</strong> {{user_email}}</li>
+            <!-- Add more personal information as needed -->
+        </ul>
+    </section>
+
+    <section id="quizStats">
+        <h2>Soru İstatistikleri</h2>
+        <ul>
+            <li><strong>Sorulan Soru Sayısı:</strong> {{questions_asked}}</li>
+            <li><strong>Dogru Cevap Sayısı:</strong> {{questions_correct}}</li>
+            <li><strong>Yanlış Cevap Sayısı:</strong> {{questions_incorrect}}</li>
+            <script>
+                var correctPercentage = ({{questions_correct}} / {{questions_asked}}) * 100;
+                document.write('<li><strong>Dogru Cevap Yuzdesi:</strong> ' + correctPercentage + '%</li>');
+            </script>            
+            <!-- Add more statistics as needed -->
+        </ul>
+    </section>
+</body>
+</html>
