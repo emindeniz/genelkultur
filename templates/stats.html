@@ -16,7 +16,7 @@
     <section id="personalInfo">
         <h2>Kullanıcı Bilgileri</h2>
         <ul>
-            <li><img src={{user_pic}} alt="Profile Picture"></li>
+            <img src={{user_pic}} alt="Profile Picture">
             <li><strong>İsim:</strong> {{user_name}}</li>
             <li><strong>Email:</strong> {{user_email}}</li>
             <!-- Add more personal information as needed -->
@@ -36,5 +36,8 @@
             <!-- Add more statistics as needed -->
         </ul>
     </section>
+
+    <!-- Add a button to go back to the main page -->
+    <a href="{{ url_for('main_page') }}"><button>Anasayfa</button></a>
 </body>
 </html>

@@ -60,7 +60,7 @@
     <button onclick="submitAnswer()">Cevapla</button>
     <!-- Add a new button for picking another question -->
     <button onclick="pickAnotherQuestion()">Başka soru</button>
-    <button onclick="goToHomePage()">Anasayfa</button>
+    <button onclick="goToHomePage()">Yeter</button>
   </div>
 
   <div id="timer">Time left: <span id="countdown">60</span> seconds</div>
@@ -169,11 +169,11 @@
         if (data.hasOwnProperty('isAnswerCorrect')) {
             // Perform an action based on the value of 'processed_result'
             if (data.isAnswerCorrect.toLowerCase()=='true'){
-              alert('Correct Answer')
+              alert('Tebrikler! Doğru Cevap')
               window.location.href = '/play';
             }
             else {
-              alert('Wrong Answer')
+              alert('Maalesef! Yanlış Cevap')
             } 
           } else {
             // Handle other cases or raise an error if expected keys are missing
