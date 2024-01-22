@@ -76,10 +76,21 @@ def play():
 @app.route("/stats")
 @login_required
 def stats():
-    return render_template('play.html', question_text = question.question_text,
-                           question_id = question.id,
-                           question_score = question.score,
-                           question_num_letters = len(question.answer))
+    user = current_user.get_user_with_stats()
+
+    # Create a dictionary with the variables
+    template_variables = {
+        'user_pic': user.profile_pic,
+        'user_name': user.name,
+        'user_email': user.email,
+        'questions_asked': user.questions_asked,
+        'questions_correct': user.questions_correct,
+        'questions_incorrect': user.questions_incorrect
+    }
+
+    # Render the template with the variables
+    return render_template('stats.html', **template_variables)
+
 
 @app.route('/check_answer', methods=['POST'])
 def check_answer():
