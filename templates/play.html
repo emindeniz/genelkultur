@@ -40,6 +40,12 @@
         button {
             margin: 0 5px; /* Adjust the margin as needed */
         }
+  /* Define a CSS class for the grayed-out state */
+  .grayed-out {
+      background-color: #ccc;
+      color: #666;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body onload="startQuiz()">
@@ -57,7 +63,7 @@
 
   <!-- Button container for horizontal alignment -->
    <div id="button-container" class="button-container">
-    <button onclick="submitAnswer()">Cevapla</button>
+    <button id="cevaplaButton" onclick="submitAnswer()">Cevapla</button>
     <!-- Add a new button for picking another question -->
     <button onclick="pickAnotherQuestion()">Başka soru</button>
     <button onclick="goToHomePage()">Yeter</button>
@@ -67,7 +73,6 @@
 </div>
 
 <script>
-  let answer = "paris"; // Set the correct answer
   let score = {{ question_score }};
   let answerLength = {{ question_num_letters }}
   let q_id = {{ question_id }};
@@ -133,7 +138,11 @@
       if (countdown < 0) {
         clearInterval(timerInterval);
         timerElement.textContent = "Time's up!";
-        pickAnotherQuestion()
+        var button = document.getElementById('cevaplaButton');
+        button.disabled = true; // Disable the button
+        button.classList.add('grayed-out'); // Add the grayed-out class;
+        setTimeout(pickAnotherQuestion(), 3000);
+        
 
       }
     }, 1000);
